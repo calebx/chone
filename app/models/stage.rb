@@ -18,7 +18,6 @@ class Stage < ActiveRecord::Base
 
   def refresh
     if (Time.now - self.updated_at) >= 10.0
-      puts "refreshing..."
       self.save
     end
   end
