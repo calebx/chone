@@ -28,7 +28,7 @@ class ItemsController < ApplicationController
   end
 
   def create
-    @item = Item.new params.require(:item).permit(:uri, :name, :code, :price, :image_uri) 
+    @item = Item.new params.require(:item).permit(:uri, :name, :code, :price, :image_uri, :on_sale_date, :off_sale_date) 
     if @item.save
       flash[:notice] = '添加完成'
       redirect_to root_path
