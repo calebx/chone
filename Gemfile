@@ -29,6 +29,7 @@ end
 # service
 gem 'nokogiri'
 gem 'httparty'
+gem 'whenever'
 
 # test
 group :development, :test do
