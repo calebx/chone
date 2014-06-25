@@ -3,7 +3,7 @@
     .col-md-8
       .panel.panel-primary
         .panel-heading
-          请输入商品链接地址URL
+          请输入商品链接地址 URL
 
         .panel-body
           = simple_form_for @item, wrapper: :bootstrap_hf_37, html: { class: 'form-horizontal login-form' } do |f|
@@ -11,6 +11,14 @@
             = f.input :name,  label: "名称",    label_html: { class: "col-md-3" }
             = f.input :price, label: "价格",    label_html: { class: "col-md-3" }
             = f.input :code,  label: "代码",    label_html: { class: "col-md-3" }
+            = f.input :on_sale_date,
+                      label: "开团日期",
+                      label_html: { class: "col-md-3" },
+                      input_html: { class: "col-md-1", style: "width: 30%;" }
+            = f.input :off_sale_date,
+                      label: "结束日期",
+                      label_html: { class: "col-md-3" },
+                      input_html: { class: "col-md-1", style: "width: 30%;" }
 
             - if @item.image_uri
               = image_tag @item.image_uri, style: "margin-bottom: 14px;"

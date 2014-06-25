@@ -11,16 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140623152317) do
+ActiveRecord::Schema.define(version: 20140625022026) do
 
   create_table "items", force: true do |t|
     t.string   "uri"
     t.string   "name"
     t.string   "code"
-    t.decimal  "price",      precision: 10, scale: 0
+    t.decimal  "price",         precision: 10, scale: 0
     t.string   "image_uri"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.date     "on_sale_date"
+    t.date     "off_sale_date"
   end
 
   create_table "stages", force: true do |t|

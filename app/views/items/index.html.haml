@@ -2,11 +2,12 @@
   %thead
     %tr
       %th.col-md-1 #
-      %th.col-md-3 商品信息
-      %th.col-md-3 图片
+      %th.col-md-2 商品信息
+      %th.col-md-2 图片
       %th.col-md-1 1.10
       %th.col-md-1 1.11
       %th.col-md-1 1.12
+      %th.col-md-1 最近
       %th.col-md-1 当前
   %tbody
     - @items.each do |item|
@@ -16,18 +17,14 @@
           %ul.list-unstyled
             %li= link_to item.name, item.uri, target: :blank 
             %li= item.price.to_s + ' rmb'
-            %li= item.created_at.strftime("%y-%m-%d")
+            %li
+              = item.on_sale_date.strftime("%m-%d")
+              \~
+              = item.off_sale_date.strftime("%m-%d")
             %li= link_to "刷新", refresh_item_path(item, from: "index")
         %td= image_tag item.image_uri, width: "280px"
-        %td
-        %td
-        %td
-        %td
-          - stage = item.current_stage
-          %strong.text-success= "SUM: #{stage.sum.to_s} (#{(stage.sum * item.price / 10000.0).round(2)}万)" 
-
-          %ul.list-unstyled
-            - stage.list.each do |i|
-              %li= i["name"] + " · " + i["saled"].to_s
-          
-          %span.text-muted= time_ago_in_words(stage.updated_at)
+        %td= render item.first_1_stage if item.first_1_stage
+        %td= render item.first_2_stage if item.first_2_stage
+        %td= render item.first_3_stage if item.first_3_stage
+        %td= render item.latest_tag_stage if item.latest_tag_stage
+        %td= render item.current_stage
