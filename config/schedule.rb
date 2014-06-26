@@ -18,6 +18,11 @@
 # end
 
 # Learn more: http://github.com/javan/whenever
+set :environment, :development
+
+every 5.minutes do
+  command "echo 'hola 5 mins testing'"
+end
 
 every 1.day, at: '10:03am' do
   runner "Work.start"
