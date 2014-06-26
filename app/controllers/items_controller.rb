@@ -8,22 +8,31 @@ class ItemsController < ApplicationController
     @item = Item.new params.permit(:uri)
     
     if @item.uri.present?
-      doc = Nokogiri::HTML HTTParty.get(@item.uri).body
-      name = doc.css(".shan_description strong").first.content
-      code = nil
-      doc.css(".shan_description p").each do |p|
-        rst = p.content.match(/商品货号：?(.*)$/) 
-        if rst
-          code = rst[1] 
-          break
-        end
-      end
-      price = doc.css(".shan_info .shan_price strong").first.content.to_f
+      begin
+        doc = Nokogiri::HTML HTTParty.get(@item.uri, timeout: 10).body   
+      rescue Exception => e
+        doc = nil
+      end 
       
-      @item.name  = name
-      @item.code  = code
-      @item.price = price
-      @item.image_uri = doc.css(".art_area img").first.attr("src")
+      if doc
+        name = doc.css(".shan_description strong").first.content
+        code = nil
+        doc.css(".shan_description p").each do |p|
+          rst = p.content.match(/商品货号：?(.*)$/) 
+          if rst
+            code = rst[1] 
+            break
+          end
+        end
+        price = doc.css(".shan_info .shan_price strong").first.content.to_f
+        
+        @item.name  = name
+        @item.code  = code
+        @item.price = price
+        @item.image_uri = doc.css(".art_area img").first.attr("src")
+      else
+        @item.uri = "有问题！"
+      end
     end
   end
 
