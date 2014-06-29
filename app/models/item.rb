@@ -1,4 +1,5 @@
 class Item < ActiveRecord::Base
+  include ItemHttpRequest
   has_many :stages
   
   def latest_tag_stage
@@ -16,28 +17,6 @@ class Item < ActiveRecord::Base
   def first_3_stage
     stages.where(code: "1.12").last
   end
-
-  # fetch api data content
-  VIP_API_URI_BASE = "http://stock.vip.com/detail?callback=detail_stock&merchandiseId=%s"
-
-  def vip_id
-    match = self.uri.match(/\-(\d*)\.html/)
-    if match
-      match[1]
-    else
-      nil
-    end
-  end
-
-  def vip_api_uri
-    VIP_API_URI_BASE % vip_id
-  end
-
-  def fetch_api_current_content
-    body_str    = HTTParty.get(self.vip_api_uri).body
-    content_str = body_str.gsub(/^detail_stock\({"items":/, "").gsub(/}\)$/, "")
-  end
-  # ===== ===== ===== ===== =====
 
   # new item or aged item
   def pre_sale?
