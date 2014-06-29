@@ -2,7 +2,7 @@ class Work
   def self.start
     puts "#{Time.now} work start ..."
     Item.all.each do |i|
-      i.tag_stage
+      i.hourly_tag_stage
     end
     puts "--- Done."
   end

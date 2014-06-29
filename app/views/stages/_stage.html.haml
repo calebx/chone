@@ -2,7 +2,7 @@
 %ul.list-unstyled
   - stage.list.each do |i|
     %li= i["name"] + " · " + i["saled"].to_s
-  - if stage.code == "0.0"
-    %li.text-muted= time_ago_in_words(stage.updated_at)
+  - if stage.random?
+    %li.text-muted= time_ago_in_words(stage.created_at)
   - else
     %li.text-muted= stage.code

@@ -27,9 +27,9 @@ ActiveRecord::Schema.define(version: 20140625022026) do
 
   create_table "stages", force: true do |t|
     t.integer  "item_id"
-    t.integer  "status"
     t.integer  "sum"
-    t.string   "code"
+    t.integer  "category"
+    t.integer  "status"
     t.text     "content"
     t.datetime "created_at"
     t.datetime "updated_at"

@@ -1,24 +1,18 @@
 class Item < ActiveRecord::Base
   include ItemHttpRequest
+
   has_many :stages
+  has_many :tag_stages,    -> { where(category: Stage.categories[:tag])},    class_name: "Stage"
+  has_many :random_stages, -> { where(category: Stage.categories[:random])}, class_name: "Stage"
   
   def latest_tag_stage
-    stages.where("code != ?", "0.0").order("created_at").last
+    tag_stages.order(:created_at).last
   end
 
-  def first_1_stage
-    stages.where(code: "1.10").last
+  def latest_random_stage
+    random_stages.order(:created_at).last
   end
 
-  def first_2_stage
-    stages.where(code: "1.11").last
-  end
-
-  def first_3_stage
-    stages.where(code: "1.12").last
-  end
-
-  # new item or aged item
   def pre_sale?
     on_sale_date > Date.today
   end
@@ -47,32 +41,26 @@ class Item < ActiveRecord::Base
   end
 
   # ===== ===== ===== ===== ===== 
-  def current_stage
-    stage = self.stages.find_or_create_by(code: "0.0")
+
+  def create_tag_stage
+    self.tag_stages.create
   end
 
-  def tag_stage
-    return nil if self.pre_sale? || self.off_sale?
+  def create_random_stage
+    self.random_stages.create
+  end
 
-    days  = (Date.today - self.on_sale_date + 1).to_i
-    hours = Time.now.hour
-    stage_code  = "#{days}.#{hours}"
-    
-    puts stage_code  
+  def hourly_tag_stage
+    return nil if (self.pre_sale? || self.off_sale?)
+    return nil if (Time.now.hour <= 9 && self.first_day?)
+    return self.create_tag_stage
+  end
 
-    if Time.now.hour <= 9
-      self.stages.find_or_create_by(code: stage_code) if !self.first_day?
-      puts 1
-    elsif (10 <= Time.now.hour) && (Time.now.hour <= 11)
-      self.stages.find_or_create_by(code: stage_code) if self.first_day?
-      puts 2
+  def refresh_random_stage
+    if self.latest_random_stage && (Time.now - self.latest_random_stage.created_at) <= 10
+      self.latest_random_stage
     else
-      self.stages.find_or_create_by(code: stage_code)
-      puts 3
+      self.create_random_stage
     end
-  end
-
-  def refresh_current_stage
-    self.current_stage.refresh
   end
 end

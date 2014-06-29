@@ -23,7 +23,7 @@ class ItemsController < ApplicationController
   def refresh
     if params[:from] && params[:from] == "index"
       @item = Item.find(params[:id])
-      @item.refresh_current_stage
+      @item.refresh_random_stage
       redirect_to items_path
     else
       render :show
