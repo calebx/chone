@@ -63,4 +63,6 @@ class Item < ActiveRecord::Base
       self.create_random_stage
     end
   end
+
+  after_create :refresh_random_stage
 end
