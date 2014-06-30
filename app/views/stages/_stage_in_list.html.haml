@@ -1,5 +1,5 @@
 %tr
-  %td= stage.created_at.strftime("%m-%d %H:%m")
+  %td= stage.created_at.localtime.strftime("%m-%d %H:%m")
   %td
     %strong.text-success= "SUM: #{stage.sum.to_s} (#{(stage.sum * stage.item.price / 10000.0).round(2)}万)" 
   %td
