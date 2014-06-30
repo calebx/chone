@@ -1,0 +1,28 @@
+.container
+  .row
+    .col-md-4
+      %ul.list-unstyled
+        %li= image_tag @item.image_uri, width: "280px"
+        %li= @item.code
+        %li= link_to @item.name, @item.uri, target: :blank
+        %li= @item.price.to_s + ' rmb'
+        %li
+          = @item.on_sale_date.strftime("%m-%d")
+          \~
+          = @item.off_sale_date.strftime("%m-%d")
+        %hr
+        %li= render @item.latest_random_stage if @item.latest_random_stage
+        %hr
+        %li= link_to "刷新", refresh_item_path(@item), class: "btn btn-sm btn-success"
+    .col-md-8
+      %table.table.table-bordered
+        %thead
+          %tr
+            %th 时间
+            %th 累计销量
+            %th 详情
+            %th 状态
+        %tbody
+          - @item.tag_stages.each do |stage|
+            = render "stages/stage_in_list", stage: stage
+

@@ -20,6 +20,10 @@ class ItemsController < ApplicationController
     end
   end
 
+  def show
+    @item = Item.find params[:id]
+  end
+
   def refresh
     if params[:from] && params[:from] == "index"
       @item = Item.find(params[:id])

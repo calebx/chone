@@ -12,11 +12,11 @@
   %tbody
     - @items.each do |item|
       %tr
-        %td= item.code
+        %td= link_to item.code, item, target: :blank
 
         %td
           %ul.list-unstyled
-            %li= link_to item.name, item.uri, target: :blank 
+            %li= link_to item.name, item.uri, target: :blank
             %li= item.price.to_s + ' rmb'
             %li
               = item.on_sale_date.strftime("%m-%d")
