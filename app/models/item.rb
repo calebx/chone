@@ -1,6 +1,9 @@
 class Item < ActiveRecord::Base
   include ItemHttpRequest
 
+  scope :live,     -> { where(archive: false) }
+  scope :archived, -> { where(archive: true) }
+
   has_many :stages
   has_many :tag_stages,    -> { where(category: Stage.categories[:tag])},    class_name: "Stage"
   has_many :random_stages, -> { where(category: Stage.categories[:random])}, class_name: "Stage"
@@ -65,4 +68,12 @@ class Item < ActiveRecord::Base
   end
 
   after_create :refresh_random_stage
+
+  def archive!
+    self.update(archive: true)
+  end
+
+  def unarchive!
+    self.update(archive: false)
+  end
 end

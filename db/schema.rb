@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140625022026) do
+ActiveRecord::Schema.define(version: 20140630131900) do
 
   create_table "items", force: true do |t|
     t.string   "uri"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20140625022026) do
     t.datetime "updated_at"
     t.date     "on_sale_date"
     t.date     "off_sale_date"
+    t.boolean  "archive",                                default: false
   end
 
   create_table "stages", force: true do |t|
