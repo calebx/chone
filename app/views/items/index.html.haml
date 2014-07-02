@@ -32,7 +32,8 @@
                 %li
                   - txt = item.archive ? "激活" : "归档"
                   = link_to txt, item_path(item, archive: 1), method: :delete, data: {confirm: "确定#{txt}？"}
-                %li= link_to "删除", item, method: :delete, data: {confirm: "确定删除？"}
+                - if item.archive
+                  %li= link_to "删除", item, method: :delete, data: {confirm: "确定删除？"}
 
         %td= image_tag item.image_uri, width: "280px"
 

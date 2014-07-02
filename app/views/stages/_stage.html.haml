@@ -1,7 +1,12 @@
 %strong.text-success= "SUM: #{stage.sum.to_s} (#{(stage.sum * stage.item.price / 10000.0).round(2)}万)" 
 %ul.list-unstyled
   - stage.list.each do |i|
-    %li= i["name"] + " · " + i["saled"].to_s
+    %li
+      - if i["stock"] == 0 || i["type"] == 1 || i["ptype"] == 1
+        %span.label.label-danger
+          = i["name"] + " · " + i["saled"].to_s + " · " + "断"
+      - else
+        = i["name"] + " · " + i["saled"].to_s
   - if stage.random?
     %li.text-muted= time_ago_in_words(stage.created_at)
   - else

@@ -5,6 +5,11 @@
   %td
     %ul.list-inline
       - stage.list.each do |i|
-        %li= i["name"] + " · " + i["saled"].to_s
+        %li
+          - if i["stock"] == 0 || i["type"] == 1 || i["ptype"] == 1
+            %span.label.label-danger
+              = i["name"] + " · " + i["saled"].to_s + " · " + "断"
+          - else
+            = i["name"] + " · " + i["saled"].to_s
   %td
     ok
