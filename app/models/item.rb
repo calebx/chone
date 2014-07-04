@@ -12,6 +12,22 @@ class Item < ActiveRecord::Base
     tag_stages.order(:created_at).last
   end
 
+  def first_tag_stage
+    tag_stages.order(:created_at).first
+  end
+
+  def first_day_tag_stage
+    latest_tag_stage_at(self.on_sale_date)
+  end
+
+  def latest_tag_stage_at(a_date)
+    latest_tag_stage_before(a_date + 1)
+  end
+
+  def latest_tag_stage_before(a_date)
+    tag_stages.where("created_at < ?", a_date).order(:created_at).last
+  end
+
   def latest_random_stage
     random_stages.order(:created_at).last
   end

@@ -1,4 +1,6 @@
-%strong.text-success= "SUM: #{stage.sum.to_s} (#{(stage.sum * stage.item.price / 10000.0).round(2)}万)" 
+%strong.text-success
+  = "SUM: #{stage.sum.to_s} (#{(stage.sum * stage.item.price / 10000.0).round(2)}万)" 
+  = "ADD: #{stage.saled_today.to_s} (#{(stage.saled_today * stage.item.price / 10000.0).round(2)}万)" 
 %ul.list-unstyled
   - stage.list.each do |i|
     %li

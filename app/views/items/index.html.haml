@@ -4,10 +4,9 @@
       %th.col-md-1 #
       %th.col-md-2 商品信息
       %th.col-md-2 图片
-      %th.col-md-1 one
-      %th.col-md-1 two
-      %th.col-md-1 three
-      %th.col-md-1 最近
+      %th.col-md-1 第一次
+      %th.col-md-1 第一天
+      %th.col-md-1 当天
       %th.col-md-1 当前
   %tbody
     - @items.each do |item|
@@ -37,11 +36,7 @@
 
         %td= image_tag item.image_uri, width: "280px"
 
-        - item.tag_stages.first(3).each do |stage|
-          %td= render stage
-        - if item.tag_stages.count < 3
-          - (3 - item.tag_stages.count).times do
-            %td= "..."
-
+        %td= render item.first_tag_stage     if item.first_tag_stage
+        %td= render item.first_day_tag_stage if item.first_day_tag_stage
         %td= render item.latest_tag_stage    if item.latest_tag_stage
         %td= render item.latest_random_stage if item.latest_random_stage
