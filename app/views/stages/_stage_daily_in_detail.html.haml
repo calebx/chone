@@ -1,0 +1,23 @@
+%tr
+  %td
+    = date.strftime("%m-%d")
+    %span.text-muted
+      ·
+      = stage.created_at.localtime.strftime("%H:%m")
+  %td
+    %strong.text-success
+      = "#{stage.sum.to_s} (#{(stage.sum * stage.item.price / 10000.0).round(2)}万)" 
+  %td
+    %strong.text-success
+      = "#{stage.saled_today.to_s} (#{(stage.saled_today * stage.item.price / 10000.0).round(2)}万)" 
+  %td
+    %ul.list-inline
+      - stage.list.each do |i|
+        %li
+          - if i["stock"] == 0 || i["type"] == 1 || i["ptype"] == 1
+            %span.label.label-danger
+              = i["name"] + " · " + i["saled"].to_s + " · " + "断"
+          - else
+            = i["name"] + " · " + i["saled"].to_s
+  %td
+    %span.glyphicon.glyphicon-ok-circle.text-success

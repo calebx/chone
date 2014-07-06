@@ -15,6 +15,24 @@
         %hr
         %li= link_to "刷新", refresh_item_path(@item), class: "btn btn-sm btn-success"
     .col-md-8
+
+      %table.table.table-bordered
+        %thead
+          %tr
+            %th 时间
+            %th 累计销量
+            %th 当天销量
+            %th 详情
+            %th 状态
+        %tbody
+          - last_day = Date.today > @item.off_sale_date ? @item.off_sale_date : Date.today
+          - (@item.on_sale_date .. last_day).each do |a_date|
+            - stage = @item.latest_tag_stage_at(a_date)
+            - if stage.created_at.to_date == a_date
+              = render "stages/stage_daily_in_detail", stage: stage, date: a_date
+            - else
+              = render "stages/stage_blank_in_detail", date: a_date
+
       %table.table.table-bordered
         %thead
           %tr
