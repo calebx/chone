@@ -2,12 +2,16 @@
 class ItemsController < ApplicationController
   def index
     if params[:scope] == 'live'
-      @items = Item.live.includes(:stages).all
+      @items = Item.live.includes(:stages)
     elsif params[:scope] == 'archive'
-      @items = Item.archived.includes(:stages).all
+      @items = Item.archived.includes(:stages)
+    elsif params[:scope] == 'all'
+      @items = Item.includes(:stages)
     else
-      @items = Item.includes(:stages).all
+      @items = Item.live.includes(:stages)
     end
+
+    @items = @items.order('on_sale_date DESC')
   end
 
   def new
