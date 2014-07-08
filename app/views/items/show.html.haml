@@ -28,7 +28,7 @@
           - last_day = Date.today > @item.off_sale_date ? @item.off_sale_date : Date.today
           - (@item.on_sale_date .. last_day).each do |a_date|
             - stage = @item.latest_tag_stage_at(a_date)
-            - if stage.created_at.to_date == a_date
+            - if stage && stage.created_at.to_date == a_date
               = render "stages/stage_daily_in_detail", stage: stage, date: a_date
             - else
               = render "stages/stage_blank_in_detail", date: a_date
