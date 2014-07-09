@@ -14,7 +14,7 @@
     %ul.list-inline
       - stage.list.each do |i|
         %li
-          - if i["stock"] == 0 || i["type"] == 1 || i["ptype"] == 1
+          - if i["stock"] == 0 || i["type"] == 1 # || i["ptype"] == 1
             %span.label.label-danger
               = i["name"] + " · " + i["saled"].to_s + " · " + "断"
           - else
