@@ -3,5 +3,5 @@ $(document).ready ()->
   $check_link = $("#check_link")
 
   $check_link.on 'click', (e)->
-    e.preventDefault()
+    console.log "good start"
     location.href = $(this).attr('href') + "?uri=" + $uri_input.val()
