@@ -2,8 +2,9 @@
 
 environment 'production'
 daemonize true
+bind 'tcp://127.0.0.1:3080'
 
-application_path = '/home/ruby/apps/jining/current'
+application_path = '/home/ruby/apps/calebx/chone_prod/current'
 directory application_path
 
 pidfile "#{application_path}/tmp/pids/puma.pid"
