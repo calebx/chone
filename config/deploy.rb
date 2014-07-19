@@ -62,7 +62,7 @@ namespace :puma do
   desc "Start the application"
   task :start do
     queue 'echo "-----> Start Puma"'
-    queue "cd #{deploy_to}/current && bundle exec puma -q -d -C config/puma.rb", :pty => false
+    queue "cd #{deploy_to}/current && bundle exec puma -q -d -C config/puma.rb"
   end
 
   desc "Stop the application"
