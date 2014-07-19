@@ -17,6 +17,7 @@ class ItemsController < ApplicationController
   def new
     @item = Item.new params.permit(:uri)
     @item.examine_web_content if @item.uri.present?
+    flash[:alert] = "添加失败，请确定uri，价格都有写明确。"
   end
 
   def create
@@ -26,7 +27,7 @@ class ItemsController < ApplicationController
       flash[:notice] = '添加完成'
       redirect_to root_path
     else
-      flash[:alert]  = '添加失败'
+      flash[:alert]  = '添加失败，请确定uri，价格都有写明确。'
       render :new
     end
   end

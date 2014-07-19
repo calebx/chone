@@ -1,13 +1,19 @@
 .container
   .row
     .col-md-8
+      - if flash[:alert]
+        .alert.alert-danger.fade.in
+          %button{type: "button", class: "close", data: {dismiss: "alert"}}
+            %span{"aria-hidden" => "true"} &times;
+            %span.sr-only close
+          = flash[:alert]
       .panel.panel-primary
         .panel-heading
           请输入商品链接地址 URL
 
         .panel-body
           = simple_form_for @item, wrapper: :bootstrap_hf_37, html: { class: 'form-horizontal login-form' } do |f|
-            = f.input :uri,   label: "团购uri", label_html: { class: "col-md-3" }, required: true, hint: link_to("校验", new_item_path, id: "check_link")
+            = f.input :uri,   label: "团购uri", label_html: { class: "col-md-3" }, required: true, hint: link_to("校验", new_item_path, id: "check_link", data: {item_new_path: new_item_path})
             = f.input :name,  label: "名称",    label_html: { class: "col-md-3" }
             = f.input :price, label: "价格",    label_html: { class: "col-md-3" }
             = f.input :code,  label: "代码",    label_html: { class: "col-md-3" }

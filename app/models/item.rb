@@ -2,6 +2,9 @@
 class Item < ActiveRecord::Base
   include ItemHttpRequest
 
+  validates :uri,   presence: true
+  validates :price, presence: true
+
   scope :live,     -> { where(archive: false) }
   scope :archived, -> { where(archive: true) }
 
