@@ -1,4 +1,4 @@
-set :environment, :development
+set :environment, :production
 set :output, "log/schedule.log"
 
 job_type :runner,  "cd :path && bin/rails runner -e :environment :task :output"

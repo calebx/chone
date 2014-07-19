@@ -2,6 +2,7 @@ require 'mina/bundler'
 require 'mina/rails'
 require 'mina/git'
 require 'mina/rbenv'
+require 'mina/whenever'
 
 # Basic settings:
 set :domain,     '121.197.3.147'
@@ -43,9 +44,10 @@ task :deploy => :environment do
   deploy do
     invoke :'git:clone'
     invoke :'deploy:link_shared_paths'
-    invoke :'bundle:install'
+    # invoke :'bundle:install'
     invoke :'rails:db_migrate'
     invoke :'rails:assets_precompile'
+    invoke :'whenever:update'
 
     to :launch do
       invoke 'puma:restart'
