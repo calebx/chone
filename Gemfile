@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'https://ruby.taobao.org'
 
 # core
 gem 'rails', '4.1.1'
@@ -30,6 +30,7 @@ end
 gem 'nokogiri'
 gem 'httparty'
 gem 'whenever'
+gem 'mina'
 
 # test
 group :development, :test do
