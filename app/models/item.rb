@@ -29,7 +29,7 @@ class Item < ActiveRecord::Base
   end
 
   def latest_tag_stage_before(a_date)
-    tag_stages.where("created_at < ?", a_date).order(:created_at).last
+    tag_stages.where("created_at < ?", a_date.try(:to_time)).order(:created_at).last
   end
 
   def latest_random_stage
