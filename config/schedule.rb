@@ -7,3 +7,8 @@ job_type :command, ":task :output"
 every :hour do 
   runner "Work.start"
 end
+
+every 1.day, :at => '1:20 am' do
+  command "backup perform --trigger chone"
+end
+
