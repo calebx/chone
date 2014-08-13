@@ -39,17 +39,22 @@ module ItemHttpRequest
       end
       
       if doc
-        name = doc.css(".shan_description strong").first.content
+        # name = doc.css(".shan_description strong").try(:first).try(:content)
+        name = doc.css(".detail_info_htmlMod strong").try(:first).try(:content)
         code = nil
-        doc.css(".shan_description p").each do |p|
+
+        # doc.css(".shan_description p").each do |p|
+        doc.css(".detail_info_htmlMod p").each do |p|
           rst = p.content.match(/商品货号：?(.*)$/) 
           if rst
             code = rst[1] 
             break
           end
         end
-        price = doc.css(".shan_info .shan_price strong").first.content.to_f
-        image_uri = doc.css(".art_area img").first.attr("src")
+        # price = doc.css(".shan_info .shan_price strong").first.content.to_f
+        price = doc.css(".products_price .p_price_vip em").first.content.to_f
+        # image_uri = doc.css(".art_area img").first.attr("src")
+        image_uri = doc.css(".productpic img").first.attr("src")
 
         self.name  = name
         self.code  = code
